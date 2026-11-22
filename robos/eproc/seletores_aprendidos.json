@@ -1,0 +1,24 @@
+{
+  "jfpr:primeiro_grau": [
+    {
+      "tag": "button",
+      "id": "sbmExcel",
+      "name": "",
+      "value": "Gerar Planilha",
+      "text": "Gerar Planilha",
+      "href": "",
+      "onclick": "gerarExcel()"
+    }
+  ],
+  "jfpr:turma_recursal": [
+    {
+      "tag": "button",
+      "id": "sbmExcel",
+      "name": "",
+      "value": "Gerar Planilha",
+      "text": "Gerar Planilha",
+      "href": "",
+      "onclick": "gerarExcel()"
+    }
+  ]
+}

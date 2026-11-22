@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Painel de Prazos e Automações RPV/PROJUDI · Procuradoria de Saúde (PRS) · Procuradoria-Geral do Estado do Paraná (PGE-PR)">
+  <title>Painel de Prazos · Procuradoria de Saúde (PGE-PR)</title>
+  <link rel="icon" type="image/png" href="logo_parana.png">
+  <link rel="stylesheet" href="styles.css?v=20261115_3">
+  <!-- React 18 Production (Ecossistema Front-End) -->
+  <script src="vendor/react.production.min.js"></script>
+  <script src="vendor/react-dom.production.min.js"></script>
+  <!-- Google Identity Services (Logar com a conta do Google) -->
+  <script>
+    if (location.protocol !== "file:") {
+      const googleIdentity = document.createElement("script");
+      googleIdentity.id = "google-identity";
+      googleIdentity.src = "https://accounts.google.com/gsi/client";
+      googleIdentity.async = true;
+      document.head.appendChild(googleIdentity);
+    }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="demonstracao.js"></script>
+  <script src="app.js?v=20261122_1"></script>
+</body>
+</html>

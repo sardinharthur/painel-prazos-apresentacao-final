@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 72" fill="none">
+  <defs>
+    <linearGradient id="pgeGreen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#007a3d"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+  </defs>
+  <!-- Tipografia Institucional (Sem ícone da balança) -->
+  <g transform="translate(2, 24)">
+    <text x="0" y="0" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="22" letter-spacing="-0.5">PGE PARANÁ</text>
+    <rect x="0" y="8" width="235" height="3" rx="1.5" fill="url(#pgeGreen)"/>
+    <text x="0" y="26" fill="#334155" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="11.5" letter-spacing="0.4">PROCURADORIA-GERAL DO ESTADO</text>
+    <text x="0" y="42" fill="#64748b" font-family="Inter, Arial, sans-serif" font-weight="600" font-size="10.5" letter-spacing="0.3">PROCURADORIA DE SAÚDE (PRS)</text>
+  </g>
+</svg>

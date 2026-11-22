@@ -1,0 +1,63 @@
+ROBÔ 2 - ePROTOCOLO / RPV
+
+ARQUIVOS PRINCIPAIS
+-------------------
+main.py              -> controla as linhas da planilha e o fluxo
+google_sheets.py     -> lê e atualiza a planilha
+eprotocolo.py        -> Playwright / cadastro no eProtocolo
+config.json          -> planilha, colunas e dados fixos
+requirements.txt     -> bibliotecas Python
+INSTALAR.bat         -> instala bibliotecas + Chromium do Playwright
+EXECUTAR.bat         -> inicia o Robô 2
+CONFIGURAR_PLAYWRIGHT.md -> guia para mapear os seletores
+
+GOOGLE SHEETS
+-------------
+O Robô 2 usa a mesma autenticação Google do Robô 1.
+
+Coloque na pasta:
+  credentials.json
+
+Se você já possui token.json válido do Robô 1 para a mesma conta e escopo,
+pode reutilizá-lo; se não, o Robô 2 abrirá a autorização Google na primeira vez.
+
+Colunas esperadas:
+  AUTOS
+  PROTOCOLO
+  NOME PACIENTE
+  CPF PACIENTE
+
+Aba configurada:
+  RPVs
+
+O código também aceita alguns nomes alternativos de cabeçalho.
+
+LINK DA PLANILHA
+----------------
+O config.json possui o campo:
+  planilha.url
+
+Se ele ainda estiver como "COLE_AQUI_O_LINK_DA_PLANILHA", na primeira execução
+o programa pede o link e o salva automaticamente no config.json.
+
+ePROTOCOLO
+----------
+O programa pede usuário e senha em toda execução.
+A senha é lida com getpass e não fica visível no terminal nem é salva no código.
+
+Antes de usar:
+  1. Preencha eprotocolo.url_login no config.json.
+  2. Rode INSTALAR.bat.
+  3. Configure os locators do Playwright em eprotocolo.py.
+  4. Mantenha modo_teste=true no primeiro teste.
+  5. Execute EXECUTAR.bat.
+
+IMPORTANTE
+----------
+O Robô 2 termina assim que:
+  - o protocolo é criado;
+  - o número 25.xxx.xxx-x é capturado;
+  - o número é gravado na mesma linha da planilha.
+
+O Robô 2 NÃO escolhe arquivo de RPV e NÃO solicita assinatura.
+Essas ações ficam para o Robô 4.

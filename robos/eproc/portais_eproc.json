@@ -1,0 +1,89 @@
+{
+  "filtros_padrao": {
+    "entidade": "Todas Entidades",
+    "procuradores": [
+      "BRUNO RABELO DOS SANTOS",
+      "BRDS.PGE",
+      "PROCURADORIA DA SAUDE",
+      "PROCURADORIA DE SAUDE",
+      "PGEPR-PRS"
+    ],
+    "prazo": "Aberto",
+    "situacao": "Todas (exceto baixados e eliminados)",
+    "papel_entidade": "Processos em que a entidade é parte"
+  },
+  "portais": [
+    {
+      "id": "jfpr",
+      "nome": "EPROC JFPR",
+      "url": "https://eproc.jfpr.jus.br/eprocV2/",
+      "procuradores": [
+        "BRUNO RABELO DOS SANTOS",
+        "BRDS.PGE",
+        "PROCURADORIA DA SAUDE",
+        "PROCURADORIA DE SAUDE",
+        "PGEPR-PRS"
+      ],
+      "etapas": [
+        {
+          "id": "primeiro_grau",
+          "rotulo": "PRIMEIRO GRAU (RITO ORDINÁRIO/JEF)",
+          "termos_opcao": ["PRIMEIRO GRAU"],
+          "arquivo_saida": "EPROC_JFPR_1GRAU.xls"
+        },
+        {
+          "id": "turma_recursal",
+          "rotulo": "TURMA RECURSAL",
+          "termos_opcao": ["TURMA RECURSAL"],
+          "arquivo_saida": "EPROC_JFPR_TURMA_RECURSAL.xls"
+        }
+      ]
+    },
+    {
+      "id": "tjpr",
+      "nome": "EPROC TJPR",
+      "url": "https://eproc1g.tjpr.jus.br/eproc/index.php?sso=N",
+      "procuradores": [
+        "BRUNO RABELO DOS SANTOS",
+        "BRDS.PGE",
+        "PROCURADORIA DA SAUDE",
+        "PROCURADORIA DE SAUDE",
+        "PGEPR-PRS"
+      ],
+      "etapas": [
+        {
+          "id": "primeiro_grau",
+          "rotulo": "PRIMEIRO GRAU (RITO ORDINÁRIO/JEF)",
+          "termos_opcao": ["PRIMEIRO GRAU"],
+          "arquivo_saida": "EPROC_TJPR_1GRAU.xls"
+        },
+        {
+          "id": "turma_recursal",
+          "rotulo": "TURMA RECURSAL",
+          "termos_opcao": ["TURMA RECURSAL"],
+          "arquivo_saida": "EPROC_TJPR_TURMA_RECURSAL.xls"
+        }
+      ]
+    },
+    {
+      "id": "jfpr_recursal",
+      "nome": "EPROC JFPR RECURSAL",
+      "url": "https://eproc.trf4.jus.br/eproc2trf4/",
+      "procuradores": [
+        "BRUNO RABELO DOS SANTOS",
+        "BRDS.PGE",
+        "PROCURADORIA DA SAUDE",
+        "PROCURADORIA DE SAUDE",
+        "PGEPR-PRS"
+      ],
+      "etapas": [
+        {
+          "id": "turma_recursal",
+          "rotulo": "SEGUNDO GRAU / RECURSAL",
+          "termos_opcao": ["SEGUNDO GRAU", "2º GRAU", "TURMA RECURSAL"],
+          "arquivo_saida": "EPROC_JFPR_RECURSAL.xls"
+        }
+      ]
+    }
+  ]
+}

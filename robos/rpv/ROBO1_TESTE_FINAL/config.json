@@ -1,0 +1,14 @@
+{
+  "spreadsheet_id": "1MaraQb5yraO5nwwrrW5qs7RGlMKJhSLpQhN9VnHiwsY",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1MaraQb5yraO5nwwrrW5qs7RGlMKJhSLpQhN9VnHiwsY/edit",
+  "sheet_name": "RPVs",
+  "header_row": 1,
+  "eproc_url": "https://eproc.jfpr.jus.br/eprocV2/",
+  "status_automation_header": "STATUS AUTOMAÇÃO",
+  "nome_paciente_header": "NOME PACIENTE",
+  "cpf_paciente_header": "CPF PACIENTE",
+  "max_paginas_eventos": 80,
+  "pausar_para_login": true,
+  "dry_run": true,
+  "limite_processos": 1
+}

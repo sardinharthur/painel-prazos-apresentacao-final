@@ -1,0 +1,37 @@
+{
+  "planilha": {
+    "url": "https://docs.google.com/spreadsheets/d/1MaraQb5yraO5nwwrrW5qs7RGlMKJhSLpQhN9VnHiwsY/edit?gid=0#gid=0",
+    "aba": "RPVs",
+    "linha_cabecalho": 1,
+    "colunas": {
+      "processo": "AUTOS",
+      "protocolo": "PROTOCOLO",
+      "nome": "NOME PACIENTE",
+      "cpf": "CPF PACIENTE"
+    }
+  },
+  "eprotocolo": {
+    "url_login": "https://www.eprotocolo.pr.gov.br/",
+    "headless": false,
+    "slow_mo_ms": 50,
+    "timeout_ms": 30000,
+    "modo_teste": false,
+    "limite_por_execucao": 50,
+    "dados_fixos": {
+      "tipo_processo": "Digital",
+      "orgao_cadastro": "PGE - PROCURADORIA GERAL DO ESTADO",
+      "local_cadastro": "PGE/PRS - PROCURADORIA DE SAÚDE",
+      "especie_documento": "REQUISIÇÃO",
+      "restricao_acesso": "Restrito",
+      "assunto": "AREA JURIDICA",
+      "palavra_chave_1": "PAGAMENTO",
+      "proposta_decretos": "Não",
+      "pais": "BRASIL",
+      "estado": "PR",
+      "cidade": "CURITIBA",
+      "prioridade_legal": "Não",
+      "tipo_interessado": "PESSOA FÍSICA",
+      "tipo_identificacao": "CPF"
+    }
+  }
+}

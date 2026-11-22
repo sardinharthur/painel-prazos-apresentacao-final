@@ -1,0 +1,76 @@
+ROBÔ 4 - ASSINATURA RPV
+=======================
+
+O fluxo é:
+1) Lê NÚMERO, PROTOCOLO, AUTOS, EVENTO e PROCURADOR na aba RPVs.
+2) Localiza o REQEXT1 que o Robô 1 salvou.
+3) Se o REQEXT1 não existir, usa o mesmo caminho do Robô 1 para baixá-lo do EPROC.
+4) Baixa a RPV do Google Drive usando COLUNA A -> ex.: 1150 -> 1150.pdf.
+5) Entra no eProtocolo usando o login do Robô 2.
+6) Na Minha Caixa, abre o protocolo pelo lápis.
+7) Anexa REQEXT1.
+8) Clica Atualizar Volume.
+9) Anexa a RPV.
+10) Abre Solicitar / ver detalhes de assinatura.
+11) Seleciona PGE/PRS - PROCURADORIA DE SAÚDE.
+12) Seleciona o procurador da planilha, exigindo que a opção também contenha PGE/PRS.
+13) Clica Solicitar Assinatura.
+14) Termina. O Robô 5 começa somente depois da assinatura manual do procurador.
+
+ANTES DE EXECUTAR
+-----------------
+1) Copie para esta pasta o credentials.json que você já usa nos Robôs 1/2.
+   Não copie token.json: este Robô cria token_robo4.json com permissão de leitura do Drive.
+
+2) Execute INSTALAR.bat uma vez.
+
+3) Execute EXECUTAR.bat.
+
+4) Na primeira execução, o Google pedirá autorização para:
+   - ler a planilha;
+   - ler os PDFs na pasta do Google Drive.
+
+5) O programa perguntará a linha inicial e a quantidade máxima.
+   Recomendo começar com UMA linha.
+
+REQEXT1
+-------
+Na primeira execução o programa tenta localizar automaticamente a pasta downloads
+ do Robô 1. Se não achar, ele pede o caminho completo e salva no config.json.
+
+O nome esperado é o mesmo do Robô 1:
+[AUTOS sem pontuação]_REQEXT1_[EVENTO].pdf
+
+Exemplo:
+50000106020224047009_REQEXT1_214.pdf
+
+RPV
+---
+A RPV é procurada na pasta configurada do Google Drive pelo valor da COLUNA A.
+Exemplo: NÚMERO = 1150 -> arquivo 1150.pdf.
+
+PROTEÇÕES
+---------
+- O procurador só é selecionado se a opção contiver o nome da planilha E PGE/PRS.
+- Antes da assinatura, o painel precisa mostrar PGE - PROCURADORIA GERAL DO ESTADO.
+- O arquivo processados_robo4.json impede solicitar de novo a mesma linha/protocolo.
+- Erros geram screenshots na pasta prints_erro.
+
+MODO TESTE
+----------
+Para preencher tudo SEM clicar em Solicitar Assinatura, altere no config.json:
+"modo_teste": true
+
+Para execução real:
+"modo_teste": false
+
+
+=== ALTERAÇÕES V3 ===
+- Pasta das RPVs no Drive: 1KZnowQXJcE9uz0cmwKxQohlVkg8oy3Z6
+- A RPV é procurada como NÚMERO.pdf (ex.: 1150.pdf).
+- O EPROC abre uma única vez por execução.
+- Se o EPROC pedir login, faça-o no navegador: NÃO é necessário pressionar ENTER no terminal.
+- Cada linha válida pesquisa automaticamente o AUTOS e baixa o REQEXT1 pelo mesmo caminho do Robô 1.
+- Se o protocolo não estiver na Minha Caixa, a linha é pulada.
+- Se já existir a RPV daquele número no protocolo, a linha é pulada para evitar duplicidade.
+- Erro em uma linha não pede ENTER: registra e segue para a próxima.

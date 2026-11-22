@@ -1,0 +1,20 @@
+{
+  "url_prazos": "https://projudi.tjpr.jus.br/projudi/usuario/mesaProcurador.do?actionType=listaInicio&p=0.5465999146881415",
+  "url_topo": "https://projudi.tjpr.jus.br/projudi/",
+  "cabecalho": [
+    "Processo\nParte",
+    "Evento\nPrazo",
+    "Data Envio\nÚltimo Dia",
+    "Inicio Prazo\nFinal Prazo",
+    ""
+  ],
+  "mapa": {
+    "processo": 0,
+    "evento": 1,
+    "data_final": 3,
+    "datas_intimacao": [
+      2
+    ]
+  },
+  "mapeado_em": "04/11/2026 17:36:23"
+}

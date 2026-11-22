@@ -1,0 +1,41 @@
+ROBÔ 1 - EPROC -> GOOGLE SHEETS
+
+Use SOMENTE:
+    ROBO1.bat
+
+FLUXO IMPLEMENTADO
+1. Lê as linhas pendentes na aba RPVs da sua planilha.
+2. Pesquisa o número dos AUTOS na Pesquisa rápida do EPROC.
+3. Abre REQEXT1 e extrai os dados da RPV que estiverem faltando.
+4. Vai para a ÚLTIMA página dos eventos.
+5. Procura INIC1; se não estiver lá, volta por "Página anterior".
+6. Abre INIC1 em PDF.
+7. Extrai NOME PACIENTE + CPF PACIENTE do começo da petição.
+8. Atualiza a mesma linha da planilha.
+
+REGRA DEFINITIVA
+NOME PACIENTE e CPF PACIENTE SEMPRE vêm do INIC1,
+inclusive em honorários periciais.
+
+ANTES DO TESTE
+A planilha precisa possuir os cabeçalhos:
+- AUTOS
+- AUTOR
+- NATUREZA
+- VALOR
+- NOME PACIENTE
+- CPF PACIENTE
+
+O projeto já possui o link/ID da planilha.
+O credentials.json NÃO é incluído no ZIP por segurança.
+No menu do ROBO1.bat use:
+5 - CONFIGURAR credentials.json DO GOOGLE
+
+ORDEM RECOMENDADA PARA FINALIZAR
+1. Opção 2: TESTAR 1 PROCESSO sem gravar.
+2. Confira no terminal NOME, CPF, natureza e valor.
+3. Opção 3: TESTAR 1 PROCESSO E GRAVAR.
+4. Confira a linha na planilha.
+5. Se tudo estiver certo, opção 4 executa todas as linhas pendentes.
+
+Se ocorrer erro, use a opção 7 para abrir a pasta debug.

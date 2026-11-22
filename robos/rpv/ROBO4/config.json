@@ -1,0 +1,26 @@
+{
+  "planilha": {
+    "id_ou_url": "1MaraQb5yraO5nwwrrW5qs7RGlMKJhSLpQhN9VnHiwsY",
+    "aba": "RPVs",
+    "linha_cabecalho": 1
+  },
+  "drive": {
+    "pasta_rpvs_id": "1KZnowQXJcE9uz0cmwKxQohlVkg8oy3Z6"
+  },
+  "eprotocolo": {
+    "url_login": "https://www.eprotocolo.pr.gov.br/",
+    "headless": false,
+    "slow_mo_ms": 75,
+    "timeout_ms": 30000,
+    "canal_navegador": "chrome"
+  },
+  "eproc": {
+    "url": "https://eproc.jfpr.jus.br/eprocV2/",
+    "max_paginas_eventos": 80,
+    "fallback_se_faltar_reqext": false
+  },
+  "execucao": {
+    "modo_teste": false,
+    "ignorar_ja_processados": true
+  }
+}
