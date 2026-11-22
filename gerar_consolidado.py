@@ -55,7 +55,6 @@ def _gerar_html_apps_script() -> None:
             html_gas,
         )
         html_gas = re.sub(r'\s*<script id="google-identity"[^>]*></script>', "", html_gas)
-        html_gas = re.sub(r'\s*<script src="demonstracao\.js"></script>', "", html_gas)
         for biblioteca in ("react", "react-dom"):
             nome = f"{biblioteca}.production.min.js"
             conteudo = (PASTA_PAINEL / "vendor" / nome).read_text(encoding="utf-8")

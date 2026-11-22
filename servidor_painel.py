@@ -67,7 +67,7 @@ from prazos import eproc as mod_eproc
 from prazos import auth, db
 
 ARQUIVOS_PUBLICOS = {
-    "Index.html", "app.js", "styles.css", "logo_parana.png", "logo_pge.svg", "demonstracao.js",
+    "Index.html", "app.js", "styles.css", "logo_parana.png", "logo_pge.svg",
     "vendor/react.production.min.js", "vendor/react-dom.production.min.js",
 }
 LOGIN_ROTAS = {"/api/auth/login", "/api/auth/google"}

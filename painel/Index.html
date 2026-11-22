@@ -13,7 +13,7 @@
   <script src="vendor/react-dom.production.min.js"></script>
   <!-- Google Identity Services (Logar com a conta do Google) -->
   <script>
-    if (location.protocol !== "file:") {
+    if (location.protocol !== "file:" && !window.PAINEL_AVALIACAO) {
       const googleIdentity = document.createElement("script");
       googleIdentity.id = "google-identity";
       googleIdentity.src = "https://accounts.google.com/gsi/client";
@@ -24,7 +24,6 @@
 </head>
 <body>
   <div id="root"></div>
-  <script src="demonstracao.js"></script>
-  <script src="app.js?v=20261122_1"></script>
+  <script src="app.js?v=20261122_real"></script>
 </body>
 </html>

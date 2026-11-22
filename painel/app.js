@@ -109,11 +109,9 @@
     },
   ];
 
-  const demonstracao = window.PAINEL_DEMONSTRACAO;
-  demonstracao?.prepararRobos(DEFAULT_RPV_ROBOTS);
-
   const RPV_STATUS_NAMES = {
     ready: "Pronto",
+    disabled: "Acesso de leitura",
     running: "Executando",
     done: "Concluído",
     error: "Erro",
@@ -191,7 +189,7 @@
             className: "sapiens-login-logo",
           }),
           h("div", { className: "sapiens-login-sys" }, "Painel de Prazos / PGE-PR"),
-          h("div", { className: "sapiens-login-env" }, demonstracao ? "DEMONSTRAÇÃO" : "PRODUÇÃO")
+          h("div", { className: "sapiens-login-env" }, window.PAINEL_AVALIACAO ? "AVALIAÇÃO FESPPR" : "PRODUÇÃO")
         ),
         h(
           "div",
@@ -199,11 +197,6 @@
           h("h1", { className: "sapiens-login-heading", id: "login-title" }, "Entrar no Painel de Prazos"),
           checking
             ? h("p", { role: "status" }, "Verificando sessão…")
-            : demonstracao
-            ? h("button", {
-                className: "alt-login-submit",
-                onClick: () => onSenha("", ""),
-              }, "Abrir demonstração")
             : IS_APPS_SCRIPT
             ? h("button", { className: "alt-login-submit", onClick: onRetry }, "Tentar novamente")
             : h(
@@ -216,9 +209,9 @@
                     onSenha(campos.get("email"), campos.get("senha"));
                   },
                 },
-                h("label", { htmlFor: "login-email", className: "alt-login-label" }, "E-mail"),
+                h("label", { htmlFor: "login-email", className: "alt-login-label" }, window.PAINEL_AVALIACAO ? "Login" : "E-mail"),
                 h("input", {
-                  id: "login-email", name: "email", type: "email", required: true,
+                  id: "login-email", name: "email", type: window.PAINEL_AVALIACAO ? "text" : "email", required: true,
                   autoComplete: "username", maxLength: 254, className: "alt-login-input",
                 }),
                 h("label", { htmlFor: "login-senha", className: "alt-login-label" }, "Senha"),
@@ -420,6 +413,7 @@
     onClear,
     quickChips,
     extraHeaderActions,
+    readOnly = false,
   }) {
     const [chatText, setChatText] = useState("");
     const logBodyRef = useRef(null);
@@ -461,7 +455,7 @@
           "div",
           { style: { display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" } },
           extraHeaderActions,
-          h(
+          !readOnly && h(
             "button",
             {
               type: "button",
@@ -485,7 +479,7 @@
         { className: "rpv-log-body", ref: logBodyRef },
         lines && lines.length ? lines.join("\n") : emptyText
       ),
-      h(
+      !readOnly && h(
         "div",
         { className: "console-chat-bar" },
         quickChips && quickChips.length
@@ -554,7 +548,7 @@
                         "aria-label": "Fechar" }, "×")
         ),
         h("div", null, session.email),
-        h("div", null, session.perfil === "admin" ? "Administrador" : "Usuário"),
+        h("div", null, session.avaliacao ? "Avaliação com acesso de leitura" : session.perfil === "admin" ? "Administrador" : "Usuário"),
         !IS_APPS_SCRIPT && h("button", { type: "button", className: "update-btn", disabled: authLoading,
                                        onClick: onLogout }, "Sair"),
         authMessage && h("p", { role: "alert" }, authMessage)
@@ -622,6 +616,15 @@
 
     const ultimaVersaoRef = useRef(null);
     const isAdmin = session.perfil === "admin" && !IS_APPS_SCRIPT;
+    const canViewRobots = isAdmin || Boolean(session.avaliacao);
+
+    useEffect(() => {
+      if (session.avaliacao) {
+        setRpvRobots(DEFAULT_RPV_ROBOTS.map((robo) => ({
+          ...robo, status: "disabled", message: "Acesso de leitura para a banca", log: [],
+        })));
+      }
+    }, [session.avaliacao]);
 
     const encerrarSessao = useCallback((mensagem = "") => {
       requests.current.abort();
@@ -648,8 +651,7 @@
 
     const api = useCallback(async (url, opts) => {
       const signal = requests.current.signal;
-      const transporte = demonstracao ? demonstracao.requisitar : fetch;
-      const resp = await transporte(url, { ...opts, signal });
+      const resp = await fetch(url, { ...opts, signal });
       if (resp.status === 401 && !["/api/auth/login", "/api/auth/google"].includes(url)) {
         encerrarSessao("Entre para acessar o painel.");
       }
@@ -764,7 +766,7 @@
           const st = await r.json();
           if (!ativo) return;
           if (st.session) setSession(st.session);
-          if (st.session?.perfil !== "admin" && section !== "prazos") setSection("prazos");
+          if (!st.session?.avaliacao && st.session?.perfil !== "admin" && section !== "prazos") setSection("prazos");
           if (isAdmin && (st.em_andamento || st.sapiens_em_andamento) && st.etapa) {
             setSourceStatus(st.etapa);
           }
@@ -772,8 +774,8 @@
             ultimaVersaoRef.current = st.versao_dados;
             setSourceStatus("Painel sincronizado");
           }
-          if (isAdmin && section === "rpv") await refreshRpvStatus();
-          if (isAdmin && section === "projudi") await refreshProjudiStatus();
+          if (canViewRobots && section === "rpv") await refreshRpvStatus();
+          if (canViewRobots && section === "projudi") await refreshProjudiStatus();
         } catch (_) {
         } finally {
           emAndamento = false;
@@ -782,7 +784,7 @@
       consultar();
       const interval = setInterval(consultar, 1200);
       return () => { ativo = false; clearInterval(interval); };
-    }, [session.autenticado, section, isAdmin, api, carregarPrazos, refreshRpvStatus, refreshProjudiStatus]);
+    }, [session.autenticado, section, isAdmin, canViewRobots, api, carregarPrazos, refreshRpvStatus, refreshProjudiStatus]);
 
     // Drag & Drop de planilhas .xls (Habilitado SOMENTE para Minha Conta / Admin)
     useEffect(() => {
@@ -1147,7 +1149,7 @@
           h("div", { className: "rpv-subtitle" }, r.subtitle)
         ),
         h("div", { className: "rpv-desc" }, r.description),
-        r.id === "robo1"
+        isAdmin && r.id === "robo1"
           ? h(
               "div",
               { onClick: (e) => e.stopPropagation() },
@@ -1175,7 +1177,7 @@
                 `${r.message || stLabel} · ${countTxt}`
               )
             : null,
-          h(
+          isAdmin && h(
             "div",
             { className: "rpv-actions" },
             r.status === "running"
@@ -1335,7 +1337,7 @@
               },
               h("span", null, "Prazos Consolidados")
             ),
-            isAdmin && h(
+            canViewRobots && h(
               "button",
               {
                 className: "side-item" + (section === "rpv" ? " active" : ""),
@@ -1347,7 +1349,7 @@
               h("span", null, "Automação RPVs"),
               h("span", { className: "badge status" }, "4 robôs")
             ),
-            isAdmin && h(
+            canViewRobots && h(
               "button",
               {
                 className: "side-item" + (section === "projudi" ? " active" : ""),
@@ -1411,7 +1413,7 @@
                 h("span", { className: "pge-pill" }, "PGE-PR")
               ),
               h("div", { className: "brand-sub", id: "topBrandSub" },
-                demonstracao ? "Demonstração acadêmica · Dados fictícios · Robôs simulados" : topSub)
+                session.avaliacao ? "Avaliação FESPPR · Coleta real · Acesso de leitura" : topSub)
             )
           ),
 
@@ -1558,7 +1560,7 @@
                     {
                       type: "button",
                       className: "update-btn a11y-top-btn",
-                      onClick: () => demonstracao ? demonstracao.exportarPlanilha() : window.open(rpvSpreadsheetUrl, "_blank"),
+                      onClick: () => window.open(rpvSpreadsheetUrl, "_blank"),
                     },
                     "📊 Planilha RPVs"
                   ),
@@ -1885,14 +1887,14 @@
                       rows.length === 1 ? "" : "s"
                     }`
                   ),
-                  h("span", null, isAdmin ? runtime : "Procuradoria de Saúde · PGE-PR")
+                  h("span", null, session.avaliacao ? "Coleta real preservada · " + runtime : isAdmin ? runtime : "Procuradoria de Saúde · PGE-PR")
                 )
               )
             )
           : null,
 
         // ==================== VISÃO 2: ROBÔS RPV (COM SHADCN CAROUSEL) ====================
-        isAdmin && section === "rpv"
+        canViewRobots && section === "rpv"
           ? h(
               "main",
               { className: "workspace", id: "sectionRpvWorkspace" },
@@ -1954,6 +1956,7 @@
                   ),
 
               h(ConsoleWithChat, {
+                readOnly: !isAdmin,
                 title: showGlobalRpvLog
                   ? "TODOS OS 4 ROBÔS (LOG GERAL)"
                   : activeRpvRobot?.label || "ROBÔ 1",
@@ -1962,7 +1965,7 @@
                   : "Pronto",
                 badgeClass: activeRpvRobot ? getStatusBadgeClass(activeRpvRobot.status) : "status",
                 lines: rpvConsoleLines,
-                emptyText:
+                emptyText: session.avaliacao ? "Execução dos robôs apresentada pelo responsável pelo projeto. A banca tem acesso de leitura aos painéis." :
                   'Selecione um dos 4 robôs acima e clique em "▶ Executar" para acompanhar e interagir diretamente por este Console.',
                 waitingInput: Boolean(activeRpvRobot?.waiting_input),
                 onSendInput: sendRpvConsoleInput,
@@ -1995,7 +1998,7 @@
           : null,
 
         // ==================== VISÃO 3: ROBÔ PET PROJUDI (CONSOLE CHAT + CMD OCULTO + LINK SALVO) ====================
-        isAdmin && section === "projudi"
+        canViewRobots && section === "projudi"
           ? h(
               "main",
               { className: "workspace", id: "sectionProjudiWorkspace" },
@@ -2028,7 +2031,7 @@
                   h("span", null, projudiMessage)
                 )
               ),
-              h(
+              isAdmin && h(
                 "div",
                 {
                   style: {
@@ -2088,6 +2091,7 @@
                 )
               ),
               h(ConsoleWithChat, {
+                readOnly: !isAdmin,
                 title: "ROBÔ PET PROJUDI (CMD OCULTO · CHAT INTEGRADO)",
                 badgeText:
                   projudiStatus === "running"
@@ -2099,7 +2103,7 @@
                     : "Pronto",
                 badgeClass: getStatusBadgeClass(projudiStatus),
                 lines: projudiConsoleLines,
-                emptyText:
+                emptyText: session.avaliacao ? "Execução dos robôs apresentada pelo responsável pelo projeto. A banca tem acesso de leitura aos painéis." :
                   'Pronto para executar. O link do PROJUDI já está salvo automaticamente. Clique em "▶ Rodar Robô PROJUDI" e utilize o Chat abaixo para responder confirmações (como "ENVIAR" ou ENTER) diretamente no site, sem janela CMD.',
                 waitingInput: projudiWaitingInput,
                 onSendInput: sendProjudiConsoleInput,
