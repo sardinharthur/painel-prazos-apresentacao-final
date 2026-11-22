@@ -1444,7 +1444,24 @@
               "◐ Contraste"
             ),
 
-            // Controles de puxar dados / logins nos sites: VISÍVEIS SOMENTE PARA MINHA CONTA (isAdmin)
+            section === "prazos" && session.avaliacao
+              ? h(
+                  "button",
+                  {
+                    type: "button",
+                    className: "update-btn",
+                    onClick: () => window.alert(
+                      "Na instalação institucional, Atualizar executa a coleta pelos robôs. " +
+                      "Essa operação exige credenciais dos portais e será demonstrada pelo autor na apresentação. " +
+                      "Esta versão da banca mantém os dados reais da coleta incluída."
+                    ),
+                    title: "A coleta pelos robôs será demonstrada pelo autor na apresentação",
+                  },
+                  "↻ Atualizar"
+                )
+              : null,
+
+            // Controles de coleta disponíveis para a conta administradora.
             section === "prazos" && isAdmin
               ? h(
                   "span",

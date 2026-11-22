@@ -33,11 +33,16 @@ de pacotes adicionais ficam dispensados nesse acesso.
 - Alto contraste, tamanho da fonte e navegação responsiva.
 - Painéis dos robôs RPV e PET PROJUDI, suas descrições e carrossel.
 - Login, sessão por navegador e logout.
+- Botão **Atualizar** visível no painel de prazos.
 
 A conta da banca tem **acesso de leitura**. Operações de atualização, importação,
 execução e parada dos robôs, acesso a pastas e comandos de console ficam bloqueadas
-na interface e no servidor. Os consoles informam a restrição de acesso. A execução
-real dos robôs será demonstrada pelo responsável pelo projeto na apresentação.
+no servidor. O botão **Atualizar** permanece visível para avaliação da interface.
+Na instalação institucional, ele aciona a coleta pelos robôs. Na versão da banca,
+clicar nele exibe uma explicação sobre as credenciais dos portais necessárias para
+essa operação. A coleta será demonstrada pelo responsável pelo projeto na
+apresentação. Os controles de importação e operação direta dos robôs ficam ocultos,
+e os consoles informam a restrição de acesso.
 
 O painel de avaliação consulta a fotografia real incluída em
 `avaliacao/estado.json`. Novas coletas feitas na instalação institucional exigem
