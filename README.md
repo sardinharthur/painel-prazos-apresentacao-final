@@ -78,3 +78,7 @@ node --check painel/app.js
 Os testes da aplicação institucional podem ser executados depois de instalar
 `requirements.txt`. Os testes do Postgres usam um banco separado configurado em
 `TEST_DATABASE_URL`.
+
+
+
+Link do Vídeo: https://www.youtube.com/watch?v=fiY5OYs-9UY
