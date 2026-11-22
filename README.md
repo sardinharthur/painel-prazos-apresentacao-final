@@ -13,7 +13,7 @@ fotografia dos dados.
 3. No Windows, abra **Abrir_Painel.bat** e mantenha a janela do servidor aberta.
 4. Entre no painel com **login@fesppr** e senha **@integrador2026**.
 
-No macOS, Windows ou Linux, na pasta extraída, execute:
+No macOS e Linux, na pasta extraída, execute:
 
 ```sh
 python3 servidor_avaliacao.py
