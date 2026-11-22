@@ -13,7 +13,7 @@ robôs será demonstrada pelo responsável pelo projeto.
 O servidor da banca funciona com a biblioteca padrão do Python e com os dados
 incluídos no projeto. O README detalha os arquivos usados e o funcionamento.
 
-No macOS ou Linux, execute `python3 servidor_avaliacao.py` na pasta extraída.
+No macOS, Windows ou Linux, execute `python3 servidor_avaliacao.py` na pasta extraída.
 
 Para abrir a instalação institucional configurada com Neon e credenciais dos
 portais, use **Abrir_Painel_Neon.bat**.
